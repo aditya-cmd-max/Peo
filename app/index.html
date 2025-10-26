@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peo by Aditya Jha</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://aditya-cmd-max.github.io/Peo/tts.png">
+    
+    <style>
+        /* Material Design 3 Color System */
+        :root {
+            /* Primary Colors */
+            --md-primary: #6750A4;
+            --md-on-primary: #FFFFFF;
+            --md-primary-container: #EADDFF;
+            --md-on-primary-container: #21005D;
+            
+            /* Secondary Colors */
+            --md-secondary: #625B71;
+            --md-on-secondary: #FFFFFF;
+            --md-secondary-container: #E8DEF8;
+            --md-on-secondary-container: #1D192B;
+            
+            /* Tertiary Colors */
+            --md-tertiary: #7D5260;
+            --md-on-tertiary: #FFFFFF;
+            --md-tertiary-container: #FFD8E4;
+            --md-on-tertiary-container: #31111D;
+            
+            /* Surface Colors */
+            --md-surface: #FEF7FF;
+            --md-on-surface: #1C1B1F;
+            --md-surface-variant: #E7E0EC;
+            --md-on-surface-variant: #49454F;
+            
+            /* Background Colors */
+            --md-background: #FEF7FF;
+            --md-on-background: #1C1B1F;
+            
+            /* Error Colors */
+            --md-error: #B3261E;
+            --md-on-error: #FFFFFF;
+            --md-error-container: #F9DEDC;
+            --md-on-error-container: #410E0B;
+            
+            /* Outline Colors */
+            --md-outline: #79747E;
+            --md-outline-variant: #C4C7C5;
+            
+            /* Shadow Elevations */
+            --md-elevation-1: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+            --md-elevation-2: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+            --md-elevation-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
+            --md-elevation-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px rgba(0, 0, 0, 0.3);
+            --md-elevation-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px rgba(0, 0, 0, 0.3);
+            
+            /* Animation */
+            --md-transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            --md-transition-fast: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+            
+            /* Border Radius */
+            --md-radius-small: 8px;
+            --md-radius-medium: 12px;
+            --md-radius-large: 16px;
+            --md-radius-extra-large: 28px;
+            
+            /* Spacing */
+            --md-spacing-xs: 4px;
+            --md-spacing-sm: 8px;
+            --md-spacing-md: 16px;
+            --md-spacing-lg: 24px;
+            --md-spacing-xl: 32px;
+            
+            /* Typography */
+            --md-font-family: 'Product Sans', sans-serif;
+            --md-font-size-display: 3.5625rem;
+            --md-font-size-headline: 2rem;
+            --md-font-size-title: 1.375rem;
+            --md-font-size-body: 1rem;
+            --md-font-size-label: 0.875rem;
+        }
+
+        /* Dark Theme */
+        .dark-theme {
+            --md-surface: #141218;
+            --md-on-surface: #E6E1E5;
+            --md-surface-variant: #49454F;
+            --md-on-surface-variant: #CAC4D0;
+            --md-background: #141218;
+            --md-on-background: #E6E1E5;
+            --md-primary-container: #4F378B;
+            --md-on-primary-container: #EADDFF;
+            --md-secondary-container: #4A4458;
+            --md-on-secondary-container: #E8DEF8;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--md-font-family);
+            background-color: var(--md-background);
+            color: var(--md-on-surface);
+            line-height: 1.5;
+            overflow-x: hidden;
+            transition: var(--md-transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--md-spacing-md) var(--md-spacing-xl);
+            background: var(--md-surface);
+            border-bottom: 1px solid var(--md-outline-variant);
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--md-spacing-md);
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--md-primary);
+            border-radius: var(--md-radius-medium);
+            color: var(--md-on-primary);
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: var(--md-radius-medium);
+        }
+
+        .app-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--md-on-surface);
+            letter-spacing: -0.25px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--md-spacing-sm);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--md-spacing-sm);
+            padding: var(--md-spacing-sm) var(--md-spacing-md);
+            border-radius: var(--md-radius-extra-large);
+            border: none;
+            font-family: inherit;
+            font-size: var(--md-font-size-label);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--md-transition-fast);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: currentColor;
+            opacity: 0;
+            transition: var(--md-transition-fast);
+        }
+
+        .btn:hover::before {
+            opacity: 0.08;
+        }
+
+        .btn:active::before {
+            opacity: 0.12;
+        }
+
+        .btn-filled {
+            background: var(--md-primary);
+            color: var(--md-on-primary);
+            box-shadow: var(--md-elevation-1);
+        }
+
+        .btn-filled:hover {
+            box-shadow: var(--md-elevation-2);
+            transform: translateY(-2px);
+        }
+
+        .btn-tonal {
+            background: var(--md-secondary-container);
+            color: var(--md-on-secondary-container);
+        }
+
+        .btn-outlined {
+            background: transparent;
+            color: var(--md-primary);
+            border: 1px solid var(--md-outline);
+        }
+
+        .btn-text {
+            background: transparent;
+            color: var(--md-primary);
+        }
+
+        .btn-icon {
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            color: var(--md-on-surface);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            transition: var(--md-transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--md-surface-variant);
+        }
+
+        /* Main Layout */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            padding: var(--md-spacing-xl);
+            gap: var(--md-spacing-xl);
+        }
+
+        /* Card Container */
+        .card {
+            background: var(--md-surface);
+            border-radius: var(--md-radius-large);
+            padding: var(--md-spacing-xl);
+            box-shadow: var(--md-elevation-1);
+            border: 1px solid var(--md-outline-variant);
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: var(--md-spacing-lg);
+        }
+
+        .logo-large {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--md-primary);
+            border-radius: var(--md-radius-large);
+            color: var(--md-on-primary);
+            overflow: hidden;
+            margin-bottom: var(--md-spacing-md);
+        }
+
+        .logo-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: var(--md-radius-large);
+        }
+
+        .app-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--md-on-surface);
+            margin-bottom: var(--md-spacing-xs);
+        }
+
+        .app-subtitle {
+            font-size: var(--md-font-size-body);
+            color: var(--md-on-surface-variant);
+        }
+
+        /* Input Field */
+        .input-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: var(--md-spacing-lg);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: var(--md-spacing-md) var(--md-spacing-lg);
+            background: var(--md-surface);
+            color: var(--md-on-surface);
+            border: 2px solid var(--md-outline-variant);
+            border-radius: var(--md-radius-medium);
+            font-family: inherit;
+            font-size: var(--md-font-size-body);
+            outline: none;
+            transition: var(--md-transition);
+        }
+
+        .input-field:focus {
+            border-color: var(--md-primary);
+            box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: var(--md-on-surface-variant);
+            opacity: 0.7;
+        }
+
+        /* Button Group */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--md-spacing-sm);
+            margin-bottom: var(--md-spacing-lg);
+        }
+
+        .accent-btn {
+            background: var(--md-primary);
+            color: var(--md-on-primary);
+            padding: var(--md-spacing-md) var(--md-spacing-lg);
+            border: none;
+            border-radius: var(--md-radius-extra-large);
+            font-family: inherit;
+            font-size: var(--md-font-size-body);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--md-transition);
+            box-shadow: var(--md-elevation-1);
+            display: flex;
+            align-items: center;
+            gap: var(--md-spacing-sm);
+        }
+
+        .accent-btn:hover {
+            box-shadow: var(--md-elevation-2);
+            transform: translateY(-2px);
+        }
+
+        .accent-btn:disabled {
+            background: var(--md-surface-variant);
+            color: var(--md-on-surface-variant);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Feature Buttons */
+        .feature-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--md-spacing-sm);
+            margin-top: var(--md-spacing-lg);
+            padding-top: var(--md-spacing-lg);
+            border-top: 1px solid var(--md-outline-variant);
+        }
+
+        .feature-btn {
+            background: var(--md-surface-variant);
+            color: var(--md-on-surface-variant);
+            padding: var(--md-spacing-sm) var(--md-spacing-md);
+            border: none;
+            border-radius: var(--md-radius-medium);
+            font-family: inherit;
+            font-size: var(--md-font-size-label);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--md-transition);
+            display: flex;
+            align-items: center;
+            gap: var(--md-spacing-sm);
+        }
+
+        .feature-btn:hover {
+            background: var(--md-primary-container);
+            color: var(--md-on-primary-container);
+            transform: translateY(-2px);
+        }
+
+        .feature-btn:disabled {
+            background: var(--md-surface-variant);
+            color: var(--md-on-surface-variant);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading and Error States */
+        .loading-indicator {
+            display: none;
+            margin-top: var(--md-spacing-lg);
+            font-size: var(--md-font-size-body);
+            color: var(--md-on-surface-variant);
+            align-items: center;
+            justify-content: center;
+            gap: var(--md-spacing-sm);
+        }
+
+        .error-message {
+            color: var(--md-error);
+            margin-top: var(--md-spacing-md);
+            font-size: var(--md-font-size-label);
+            min-height: 1.25rem;
+            text-align: center;
+        }
+
+        /* Audio Player */
+        #audioPlayer {
+            width: 100%;
+            margin-top: var(--md-spacing-lg);
+            border-radius: var(--md-radius-medium);
+            background: var(--md-surface-variant);
+        }
+
+        #audioPlayer.hidden {
+            display: none;
+        }
+
+        /* LLM Output */
+        #llm-output {
+            text-align: left;
+            margin-top: var(--md-spacing-lg);
+            padding: var(--md-spacing-lg);
+            background: var(--md-surface-variant);
+            border: 1px solid var(--md-outline-variant);
+            border-radius: var(--md-radius-medium);
+            display: none;
+        }
+
+        #llm-output h3 {
+            font-size: var(--md-font-size-title);
+            font-weight: 600;
+            color: var(--md-on-surface);
+            margin: 0 0 var(--md-spacing-sm) 0;
+        }
+
+        #llm-output p {
+            font-size: var(--md-font-size-body);
+            color: var(--md-on-surface-variant);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .llm-loading-spinner {
+            font-size: 1.5rem;
+            color: var(--md-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--md-spacing-sm);
+        }
+
+        /* Footer */
+        .app-footer {
+            text-align: center;
+            padding: var(--md-spacing-lg);
+            color: var(--md-on-surface-variant);
+            font-size: var(--md-font-size-body);
+            border-top: 1px solid var(--md-outline-variant);
+            background: var(--md-surface);
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: var(--md-spacing-md);
+            }
+            
+            .card {
+                padding: var(--md-spacing-lg);
+            }
+            
+            .button-group {
+                gap: var(--md-spacing-xs);
+            }
+            
+            .accent-btn, .feature-btn {
+                padding: var(--md-spacing-sm) var(--md-spacing-md);
+                font-size: var(--md-font-size-label);
+            }
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <!-- Header -->
+    <header class="app-header">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="https://aditya-cmd-max.github.io/Peo/logo.png" alt="Peo Logo">
+            </div>
+            <h1 class="app-name">Peo</h1>
+        </div>
+        
+        <div class="header-actions">
+            <button class="theme-toggle" id="theme-toggle">
+                <span class="material-icons-round">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="app-container">
+        <div class="card">
+            <div class="logo-section">
+                <div class="logo-large">
+                    <img src="https://aditya-cmd-max.github.io/Peo/logo.png" alt="Peo Logo">
+                </div>
+                <h1 class="app-title">Peo by Aditya Jha</h1>
+                <p class="app-subtitle">Your Instant Pronunciation & TTS Assistant</p>
+            </div>
+            
+            <div class="input-container">
+                <input type="text" id="wordInput" class="input-field" placeholder="Enter a word...">
+            </div>
+            
+            <div class="button-group" id="accentButtons">
+                <button class="accent-btn" data-accent="american" data-voice="Zephyr">
+                    <span class="material-icons-round">record_voice_over</span>
+                    <span>American</span>
+                </button>
+                <button class="accent-btn" data-accent="british" data-voice="Enceladus">
+                    <span class="material-icons-round">record_voice_over</span>
+                    <span>British</span>
+                </button>
+                <button class="accent-btn" data-accent="australian" data-voice="Puck">
+                    <span class="material-icons-round">record_voice_over</span>
+                    <span>Australian</span>
+                </button>
+                <button class="accent-btn" data-accent="indian" data-voice="Alnilam">
+                    <span class="material-icons-round">record_voice_over</span>
+                    <span>Indian</span>
+                </button>
+            </div>
+            
+            <div id="loading" class="loading-indicator">
+                <span class="material-icons-round">autorenew</span>
+                <span>Loading pronunciation...</span>
+            </div>
+            <div id="errorMessage" class="error-message"></div>
+            
+            <audio id="audioPlayer" controls class="hidden"></audio>
+
+            <!-- Gemini Text Features -->
+            <div class="feature-buttons">
+                <button class="feature-btn" id="defineBtn">
+                    <span class="material-icons-round">auto_awesome</span>
+                    <span>Define Word</span>
+                </button>
+                <button class="feature-btn" id="exampleBtn">
+                    <span class="material-icons-round">auto_awesome</span>
+                    <span>Example Sentence</span>
+                </button>
+                <button class="feature-btn" id="suggestBtn">
+                    <span class="material-icons-round">auto_awesome</span>
+                    <span>Suggest a Word</span>
+                </button>
+            </div>
+
+            <div id="llm-output">
+                <h3 id="llm-output-title"></h3>
+                <p id="llm-output-content"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <p>Made with <span class="material-icons-round" style="color: #F48FB1; font-size: 16px; vertical-align: middle;">favorite</span> by <span style="color: var(--md-primary); font-weight: 500;">Aditya Jha</span></p>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const wordInput = document.getElementById('wordInput');
+        const accentButtonsContainer = document.getElementById('accentButtons');
+        const loadingIndicator = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const themeToggle = document.getElementById('theme-toggle');
+        const defineBtn = document.getElementById('defineBtn');
+        const exampleBtn = document.getElementById('exampleBtn');
+        const suggestBtn = document.getElementById('suggestBtn');
+        const llmOutput = document.getElementById('llm-output');
+        const llmOutputTitle = document.getElementById('llm-output-title');
+        const llmOutputContent = document.getElementById('llm-output-content');
+        const themeIcon = themeToggle.querySelector('.material-icons-round');
+
+        // --- THEME SWITCHER LOGIC ---
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.body.classList.remove('light-theme');
+                themeIcon.textContent = 'light_mode';
+            } else {
+                document.body.classList.add('light-theme');
+                document.body.classList.remove('dark-theme');
+                themeIcon.textContent = 'dark_mode';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (document.body.classList.contains('dark-theme')) {
+                applyTheme('light');
+            } else {
+                applyTheme('dark');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
+        });
+
+        // --- API & HELPER FUNCTIONS ---
+        const API_KEY = "AIzaSyAgH_ouPFBcK9_FRPcYJk4K1PEJ0aDmN-c"; // Canvas will provide this
+
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) { bytes[i] = binaryString.charCodeAt(i); }
+            return bytes.buffer;
+        }
+        
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1, bytesPerSample = 2;
+            const blockAlign = numChannels * bytesPerSample;
+            const byteRate = sampleRate * blockAlign;
+            const dataSize = pcm16.byteLength;
+            const buffer = new ArrayBuffer(44 + dataSize);
+            const view = new DataView(buffer);
+            function writeString(offset, str) { for (let i = 0; i < str.length; i++) { view.setUint8(offset + i, str.charCodeAt(i)); } }
+            writeString(0, 'RIFF'); view.setUint32(4, 36 + dataSize, true); writeString(8, 'WAVE');
+            writeString(12, 'fmt '); view.setUint32(16, 16, true); view.setUint16(20, 1, true);
+            view.setUint16(22, numChannels, true); view.setUint32(24, sampleRate, true);
+            view.setUint32(28, byteRate, true); view.setUint16(32, blockAlign, true);
+            view.setUint16(34, 16 * numChannels, true); writeString(36, 'data'); view.setUint32(40, dataSize, true);
+            const pcmAsUint8 = new Uint8Array(pcm16.buffer); const wavBytes = new Uint8Array(buffer);
+            wavBytes.set(pcmAsUint8, 44);
+            return new Blob([wavBytes], { type: 'audio/wav' });
+        }
+        
+        function setInputsDisabled(disabled) {
+            wordInput.disabled = disabled;
+            document.querySelectorAll('.accent-btn, .feature-btn').forEach(button => {
+                button.disabled = disabled;
+            });
+        }
+        
+        function showLLMOutputLoading(title) {
+            llmOutput.style.display = 'block';
+            llmOutputTitle.textContent = title;
+            llmOutputContent.innerHTML = '<div class="llm-loading-spinner"><span class="material-icons-round">autorenew</span> Loading...</div>';
+        }
+
+        // --- CORE API CALLS ---
+        
+        // Function for Text-to-Speech API
+        async function getPronunciation(word, accent, voiceName) {
+            errorMessage.textContent = '';
+            audioPlayer.classList.add('hidden');
+            loadingIndicator.style.display = 'flex';
+            setInputsDisabled(true);
+
+            const payload = {
+                contents: [{ role: "user", parts: [{ text: `Say in a standard ${accent} accent: ${word}` }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName } } }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
+
+            try {
+                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) { const errorData = await response.json(); throw new Error(`API error: ${errorData.error.message || response.statusText}`); }
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                if (part?.inlineData?.data && part.inlineData.mimeType?.startsWith("audio/")) {
+                    const rateMatch = part.inlineData.mimeType.match(/rate=(\d+)/);
+                    const sampleRate = rateMatch ? parseInt(rateMatch[1], 10) : 16000;
+                    const pcm16 = new Int16Array(base64ToArrayBuffer(part.inlineData.data));
+                    const audioUrl = URL.createObjectURL(pcmToWav(pcm16, sampleRate));
+                    audioPlayer.src = audioUrl;
+                    audioPlayer.classList.remove('hidden');
+                    audioPlayer.play();
+                } else { throw new Error("Invalid or no audio data received."); }
+            } catch (error) {
+                console.error("Pronunciation Error:", error);
+                errorMessage.textContent = `Failed to get pronunciation.`;
+            } finally {
+                loadingIndicator.style.display = 'none';
+                setInputsDisabled(false);
+            }
+        }
+
+        // Generic function for Text Generation API
+        async function callGeminiTextAPI(prompt, outputTitle) {
+            errorMessage.textContent = '';
+            showLLMOutputLoading(outputTitle);
+            setInputsDisabled(true);
+
+            const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
+
+            try {
+                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) { const errorData = await response.json(); throw new Error(`API error: ${errorData.error.message || response.statusText}`); }
+                const result = await response.json();
+                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (text) {
+                    return text.trim();
+                } else {
+                    throw new Error("No text content received from API.");
+                }
+            } catch (error) {
+                console.error("Gemini Text API Error:", error);
+                errorMessage.textContent = `Failed to get response. Please try again.`;
+                llmOutput.style.display = 'none';
+                return null;
+            } finally {
+                setInputsDisabled(false);
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+
+        // Pronunciation buttons (Event Delegation)
+        accentButtonsContainer.addEventListener('click', (event) => {
+            const button = event.target.closest('.accent-btn');
+            if (button) {
+                const word = wordInput.value.trim();
+                if (word) {
+                    getPronunciation(word, button.dataset.accent, button.dataset.voice);
+                } else {
+                    errorMessage.textContent = "Please enter a word first.";
+                    wordInput.focus();
+                }
+            }
+        });
+
+        // Define Word button
+        defineBtn.addEventListener('click', async () => {
+            const word = wordInput.value.trim();
+            if (!word) { errorMessage.textContent = "Please enter a word to define."; return; }
+            const prompt = `Define the word "${word}" in a simple, clear way.`;
+            const definition = await callGeminiTextAPI(prompt, `Definition of "${word}"`);
+            if (definition) {
+                llmOutputContent.textContent = definition;
+            }
+        });
+
+        // Example Sentence button
+        exampleBtn.addEventListener('click', async () => {
+            const word = wordInput.value.trim();
+            if (!word) { errorMessage.textContent = "Please enter a word for an example."; return; }
+            const prompt = `Use the word "${word}" in a simple, clear example sentence.`;
+            const example = await callGeminiTextAPI(prompt, `Example for "${word}"`);
+            if (example) {
+                llmOutputContent.textContent = example;
+            }
+        });
+
+        // Suggest a Word button
+        suggestBtn.addEventListener('click', async () => {
+            const prompt = `Suggest an interesting but useful English word. Respond ONLY with a valid JSON object with three keys: "word", "definition", and "example".`;
+            const responseText = await callGeminiTextAPI(prompt, "Suggesting a Word...");
+            if (responseText) {
+                try {
+                    // Clean the response to ensure it's valid JSON
+                    const jsonString = responseText.match(/\{.*\}/s)[0];
+                    const data = JSON.parse(jsonString);
+                    if (data.word && data.definition && data.example) {
+                        wordInput.value = data.word;
+                        llmOutputTitle.textContent = `Suggested Word: ${data.word}`;
+                        llmOutputContent.innerHTML = `<strong>Definition:</strong> ${data.definition}<br><br><strong>Example:</strong> ${data.example}`;
+                    } else {
+                        throw new Error("Invalid JSON structure from API.");
+                    }
+                } catch (e) {
+                    console.error("JSON parsing error:", e);
+                    errorMessage.textContent = "Could not get a suggestion. Let's try again.";
+                    llmOutput.style.display = 'none';
+                }
+            }
+        });
+
+        // Trigger default pronunciation on Enter key
+        wordInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                document.querySelector('.accent-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>
